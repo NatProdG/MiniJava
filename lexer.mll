@@ -39,6 +39,8 @@ rule get_token = parse
   | '.'       { DOT }
   | ';'       { SEMICOLON }
   | '='       { ASSIGN }
+  | "=="      { EQ }
+  | "!="      { NOTEQ }
   | ","       { COMMA }
   | "true"    { BOOL_CONST true }
   | "false"   { BOOL_CONST false }
