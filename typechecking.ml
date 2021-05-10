@@ -138,6 +138,13 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
       typecheck_expression_expecting cenv venv vinit instanceof expected e;
       returned
 
+  | EBinOp ((OpEq | OpNotEq), e1, e2) ->
+      let typ1 = typecheck_expression cenv venv vinit instanceof e1 in
+      let typ2 = typecheck_expression cenv venv vinit instanceof e2 in
+      if (compatible typ1 typ2 instanceof || compatible typ2 typ1 instanceof)
+        then TypBool
+        else error e "Bad operands type with == or !="
+
   | EBinOp (op, e1, e2) ->
       let expected, returned =
         match op with
@@ -146,10 +153,6 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
         | OpMul -> TypInt, TypInt
         | OpLt  -> TypInt, TypBool
         | OpAnd -> TypBool, TypBool
-        | OpEq | OpNotEq ->
-          let type1 = typecheck_expression cenv venv vinit instanceof e1 in
-          typecheck_expression_expecting cenv venv vinit instanceof type1 e2;
-          expected,TypBool
       in
       typecheck_expression_expecting cenv venv vinit instanceof expected e1;
       typecheck_expression_expecting cenv venv vinit instanceof expected e2;
