@@ -136,6 +136,9 @@ let rec instr out = function
      fprintf out "%s = %a;"
        x
        expr e
+  | IInc x ->
+     fprintf out "%s++;"
+       x
   | IArraySet (id, ei, ev) ->
      fprintf out "%s[%a] = %a;"
        id

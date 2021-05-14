@@ -497,6 +497,10 @@ let instr2c
          (var2c method_name class_info) x
          (if x_class <> e_class then sprintf "(struct %s*) " x_class else "")
          (expr2c method_name class_info) e
+    | IInc x ->
+       fprintf out "%a++;"
+         (var2c method_name class_info) x
+
 
     | IArraySet (id, ei, ev) ->
        fprintf out "(%a)->array[%a] = %a;"

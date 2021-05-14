@@ -9,7 +9,7 @@ class Fibo {
     int x;
     x = 5;
     if (10 <= 10) {
-      x = x++;
+      x++;
     }
     else {
       x = 2;
@@ -34,7 +34,7 @@ void* Fibo_fibo(struct Fibo* this) {
   int x;
   x = 5;
   if ((10 <= 10)) {
-    x = x++;
+    x++;
   }
   else {
     x = 2;

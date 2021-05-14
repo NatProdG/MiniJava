@@ -168,6 +168,8 @@ instruction:
 | b = block
    { b }
 
+| id = IDENT INC SEMICOLON
+   { IInc id}
 | id = IDENT ASSIGN e = expression SEMICOLON
    { ISetVar (id, e) }
 

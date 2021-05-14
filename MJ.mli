@@ -41,6 +41,7 @@ and instruction =
   | IWhile of expression * instruction
   | ISyso of expression
   | ISetVar of identifier * expression
+  | IInc of identifier
   | IArraySet of identifier * expression * expression
 
 and typ =

@@ -205,6 +205,9 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
      in
      typecheck_expression_expecting cenv venv vinit instanceof (vlookup v venv) e;
      vinit
+  | IInc v ->
+     typecheck_expression_expecting cenv venv vinit instanceof (vlookup v venv);
+     vinit
 
   | IArraySet (earray, eindex, evalue) ->
     typecheck_expression_expecting cenv venv vinit instanceof TypIntArray

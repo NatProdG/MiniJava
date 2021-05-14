@@ -10,7 +10,6 @@ class Fibo {
         x=5;
         if (10 <= 10) {
             x++;
-            
         }
         else {
             x = 2;

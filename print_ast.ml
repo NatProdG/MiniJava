@@ -220,6 +220,9 @@ let rec print_instruction prefix out i =
        prefix'
        branch_end
        (print_expression prefix') e
+  | IInc (id) ->
+     fprintf out "IInc %a"
+     print_identifier id
   | IArraySet (id, e1, e2) ->
      fprintf out "IArraySet\n%s%s%a\n%s%s%a\n%s%s%a"
        prefix'
