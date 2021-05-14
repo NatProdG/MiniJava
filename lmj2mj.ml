@@ -20,7 +20,10 @@ and translate_instruction = function
 | LMJ.IWhile (c, i) -> MJ.IWhile (translate_expression c, translate_instruction i)
 | LMJ.ISyso e -> MJ.ISyso (translate_expression e)
 | LMJ.ISetVar (id, e) -> MJ.ISetVar (Location.content id, translate_expression e)
-| LMJ.IInc id -> MJ.IInc (Location.content id)
+| LMJ.IInc id -> MJ.IInc (translate_expression id)
+| LMJ.IDec id -> MJ.IDec (translate_expression id)
+| LMJ.IPreInc id -> MJ.IPreInc (translate_expression id)
+| LMJ.IPreDec id -> MJ.IPreDec (translate_expression id)
 | LMJ.IArraySet (a, e1, e2) -> MJ.IArraySet (Location.content a, translate_expression e1, translate_expression e2)
 
 let translate_typ = function

@@ -136,6 +136,8 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
         | UOpNot -> TypBool, TypBool
         | UOpInc -> TypInt, TypInt
         | UOpDec -> TypInt, TypInt
+        | UOpPreInc -> TypInt, TypInt
+        | UOpPreDec -> TypInt, TypInt
       in
       typecheck_expression_expecting cenv venv vinit instanceof expected e;
       returned
@@ -206,8 +208,20 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
      typecheck_expression_expecting cenv venv vinit instanceof (vlookup v venv) e;
      vinit
   | IInc v ->
-     typecheck_expression_expecting cenv venv vinit instanceof (vlookup v venv);
+     typecheck_expression_expecting cenv venv vinit instanceof TypInt v;
      vinit
+
+  | IDec v ->
+     typecheck_expression_expecting cenv venv vinit instanceof TypInt v;
+     vinit
+
+  | IPreInc v ->
+     typecheck_expression_expecting cenv venv vinit instanceof TypInt v;
+     vinit
+
+  | IPreDec v ->
+     typecheck_expression_expecting cenv venv vinit instanceof TypInt v;
+     vinit         
 
   | IArraySet (earray, eindex, evalue) ->
     typecheck_expression_expecting cenv venv vinit instanceof TypIntArray

@@ -35,13 +35,19 @@ and unop = LMJ.unop =
   | UOpNot
   | UOpInc
   | UOpDec
+  | UOpPreInc
+  | UOpPreDec
+
 and instruction =
   | IBlock of instruction list
   | IIf of expression * instruction * instruction
   | IWhile of expression * instruction
   | ISyso of expression
   | ISetVar of identifier * expression
-  | IInc of identifier
+  | IInc of expression
+  | IDec of expression
+  | IPreInc of expression
+  | IPreDec of expression
   | IArraySet of identifier * expression * expression
 
 and typ =

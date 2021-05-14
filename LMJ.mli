@@ -41,8 +41,11 @@ and binop =
 
 and unop = 
   | UOpNot (** Unary operator [!]. *)
-  | UOpInc (** Unary operator [++]. *)
-  | UOpDec (** Unary operator [--]. *)
+  | UOpInc (** Unary operator [++] after an indentifier. *)
+  | UOpDec (** Unary operator [--] after an indentifier. *)
+  | UOpPreInc (** Unary operator [++] bofore an indentifier. *)
+  | UOpPreDec (** Unary operator [--] bofore an indentifier. *)
+
 and instruction =
   | IBlock of instruction list (** [IBlock [i1; i2; ...; in]] represents the instruction [{ i1 i2 ... in }]. *)
   | IIf of expression * instruction * instruction (** [IIf (e, i1, i2)] represents the instruction [if (e) i1 else i2]. *)
@@ -50,7 +53,10 @@ and instruction =
   | ISyso of expression (** [ISyso e] represents the instruction [System.out.println(e);]. *)
   | ISetVar of identifier * expression (** [ISetVar (id, e)] represents the instruction [id = e;]. *)
   | IArraySet of identifier * expression * expression (** [IArraySet (id, e1, e2)] represents the instruction [id[e1] = e2;]. *)
-  | IInc of identifier (** [IInc id] represents the instruction [id++;]. *)
+  | IInc of expression (** [IInc id] represents the instruction [id++;]. *)
+  | IDec of expression (** [IDec id] represents the instruction [id--;]. *)
+  | IPreInc of expression (** [IPreInc id] represents the instruction [++id;]. *)
+  | IPreDec of expression (** [IPreDec id] represents the instruction [--id;]. *)
 
 and typ =
   | TypInt (** Type [int]. *)

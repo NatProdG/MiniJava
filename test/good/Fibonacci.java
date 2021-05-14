@@ -7,9 +7,9 @@ class Fibonacci {
 class Fibo {
     public int fibo() {
         int x;
-        x=5;
+        x = 5;
         if (10 <= 10) {
-            x++;
+           ++x;
         }
         else {
             x = 2;

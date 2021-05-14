@@ -471,6 +471,12 @@ let expr2c
     | EUnOp (UOpDec, e) ->
        fprintf out "%a--"
          expr2c e
+    | EUnOp (UOpPreInc, e) ->
+       fprintf out "++%a"
+         expr2c e
+    | EUnOp (UOpPreDec, e) ->
+       fprintf out "--%a"
+         expr2c e          
 
     | EBinOp (op, e1, e2) ->
        fprintf out "(%a %a %a)"
@@ -499,8 +505,19 @@ let instr2c
          (expr2c method_name class_info) e
     | IInc x ->
        fprintf out "%a++;"
-         (var2c method_name class_info) x
+         (expr2c method_name class_info) x
 
+    | IDec x ->
+       fprintf out "%a--;"
+         (expr2c method_name class_info) x
+
+    | IPreInc x ->
+       fprintf out "++%a;"
+         (expr2c method_name class_info) x
+
+    | IPreDec x ->
+       fprintf out "--%a;"
+         (expr2c method_name class_info) x
 
     | IArraySet (id, ei, ev) ->
        fprintf out "(%a)->array[%a] = %a;"

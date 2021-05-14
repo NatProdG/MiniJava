@@ -72,6 +72,11 @@ let print_unop out = function
      fprintf out "UOpInc"
   | UOpDec ->
      fprintf out "UOpDec"
+  | UOpPreInc ->
+     fprintf out "UOpPreInc"
+  | UOpPreDec ->
+     fprintf out "UOpPreDec"   
+
 (** [print_binop out op] prints the binary operator [op] on the output channel [out]. *)
 let print_binop out = function
   | OpAdd ->
@@ -222,7 +227,16 @@ let rec print_instruction prefix out i =
        (print_expression prefix') e
   | IInc (id) ->
      fprintf out "IInc %a"
-     print_identifier id
+     (print_expression prefix') id
+  | IDec (id) ->
+     fprintf out "IDec %a"
+     (print_expression prefix') id
+  | IPreInc (id) ->
+     fprintf out "IPreInc %a"
+     (print_expression prefix') id
+  | IPreDec (id) ->
+     fprintf out "IPreDec %a"
+     (print_expression prefix') id         
   | IArraySet (id, e1, e2) ->
      fprintf out "IArraySet\n%s%s%a\n%s%s%a\n%s%s%a"
        prefix'

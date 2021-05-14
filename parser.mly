@@ -116,9 +116,13 @@ raw_expression:
 
 | i = expression DEC
     { EUnOp ( UOpDec, i) }
-| INC i = expression
-    { EUnOp ( UOpInc, i) }
 
+| INC i = expression
+    { EUnOp ( UOpPreInc, i) }
+
+| DEC i = expression
+    { EUnOp ( UOpPreDec, i) }  
+   
 | i = INT_CONST
    { EConst (ConstInt i) }
 
@@ -168,8 +172,18 @@ instruction:
 | b = block
    { b }
 
-| id = IDENT INC SEMICOLON
+| id = expression INC SEMICOLON
    { IInc id}
+
+| id = expression DEC SEMICOLON
+   { IDec id}
+
+| INC id = expression SEMICOLON
+   { IPreInc id}
+
+| DEC id = expression SEMICOLON
+   { IPreDec id}
+
 | id = IDENT ASSIGN e = expression SEMICOLON
    { ISetVar (id, e) }
 
