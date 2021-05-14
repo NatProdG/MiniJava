@@ -27,9 +27,14 @@ and binop = LMJ.binop =
   | OpAnd
   | OpEq
   | OpNotEq
+  | OpLtEq
+  | OpGt
+  | OpGtEq
 
-and unop = LMJ.unop = UOpNot
-
+and unop = LMJ.unop = 
+  | UOpNot
+  | UOpInc
+  | UOpDec
 and instruction =
   | IBlock of instruction list
   | IIf of expression * instruction * instruction

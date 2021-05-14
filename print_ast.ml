@@ -68,7 +68,10 @@ let print_constant out = function
 let print_unop out = function
   | UOpNot ->
      fprintf out "UOpNot"
-
+  | UOpInc ->
+     fprintf out "UOpInc"
+  | UOpDec ->
+     fprintf out "UOpDec"
 (** [print_binop out op] prints the binary operator [op] on the output channel [out]. *)
 let print_binop out = function
   | OpAdd ->
@@ -85,6 +88,13 @@ let print_binop out = function
      fprintf out "OpEq"
   | OpNotEq ->
      fprintf out "OpNotEq"
+  | OpLtEq -> 
+     fprintf out "OpLtEq " 
+  | OpGt -> 
+     fprintf out "OpGt"
+  | OpGtEq -> 
+     fprintf out "OpGtEq"
+   
 
 (** [print_expression prefix out e] prints the expression [e] on the output channel [out].
     [prefix] is the string already printed just before [e]. *)

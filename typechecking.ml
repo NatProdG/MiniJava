@@ -134,22 +134,32 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
       let expected, returned =
         match op with
         | UOpNot -> TypBool, TypBool
+        | UOpInc -> TypInt, TypInt
+        | UOpDec -> TypInt, TypInt
       in
       typecheck_expression_expecting cenv venv vinit instanceof expected e;
       returned
 
-  | EBinOp ((OpEq | OpNotEq), e1, e2) ->
-      let typ1 = typecheck_expression cenv venv vinit instanceof e1 in
-      let typ2 = typecheck_expression cenv venv vinit instanceof e2 in
+  | EBinOp (OpEq , e1, e2) ->
+      let typ1 = typecheck_expression cenv venv vinit instanceof e1 and typ2 = typecheck_expression cenv venv vinit instanceof e2 in
       if (compatible typ1 typ2 instanceof || compatible typ2 typ1 instanceof)
         then TypBool
-        else error e "Bad operands type with == or !="
+        else error e "Bad usage of operation =="
+
+  | EBinOp (OpNotEq, e1, e2) ->
+      let typ1 = typecheck_expression cenv venv vinit instanceof e1 and typ2 = typecheck_expression cenv venv vinit instanceof e2 in
+      if (compatible typ1 typ2 instanceof || compatible typ2 typ1 instanceof)
+        then TypBool
+        else error e "Bad usage of operation !="
 
   | EBinOp (op, e1, e2) ->
       let expected, returned =
         match op with
         | OpAdd
         | OpSub
+        | OpLtEq -> TypInt, TypBool
+        | OpGt -> TypInt, TypBool
+        | OpGtEq -> TypInt, TypBool 
         | OpMul -> TypInt, TypInt
         | OpLt  -> TypInt, TypBool
         | OpAnd -> TypBool, TypBool

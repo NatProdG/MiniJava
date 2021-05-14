@@ -27,9 +27,14 @@ rule get_token = parse
   | "/*"      { comment lexbuf }
   | '+'       { PLUS }
   | '-'       { MINUS }
+  | "++"      { INC }
+  | "--"      { DEC }
   | '*'       { TIMES }
   | "&&"      { AND }
   | "<"       { LT }
+  | "<="      { LTEQ }
+  | ">"       { GT }
+  | ">="      { GTEQ }
   | '('       { LPAREN }
   | ')'       { RPAREN }
   | '['       { LBRACKET }

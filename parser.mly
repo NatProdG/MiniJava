@@ -8,7 +8,7 @@
 %token INTEGER BOOLEAN
 %token <string Location.t> IDENT
 %token CLASS PUBLIC STATIC VOID MAIN STRING EXTENDS RETURN
-%token PLUS MINUS TIMES NOT LT AND EQ NOTEQ
+%token PLUS MINUS TIMES NOT LT AND EQ NOTEQ LTEQ GT GTEQ INC DEC
 %token COMMA SEMICOLON
 %token ASSIGN
 %token LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE
@@ -18,10 +18,12 @@
 %token EOF
 
 %left AND
+%nonassoc EQ NOTEQ
 %nonassoc LT
 %left PLUS MINUS
 %left TIMES
 %nonassoc NOT
+%nonassoc INC DEC
 %nonassoc DOT LBRACKET
 
 %start program
@@ -108,6 +110,15 @@ expression:
    { e }
 
 raw_expression:
+
+| i = expression INC
+    { EUnOp ( UOpInc, i) }
+
+| i = expression DEC
+    { EUnOp ( UOpDec, i) }
+| INC i = expression
+    { EUnOp ( UOpInc, i) }
+
 | i = INT_CONST
    { EConst (ConstInt i) }
 
@@ -146,6 +157,9 @@ raw_expression:
 | MINUS { OpSub }
 | TIMES { OpMul }
 | LT    { OpLt }
+| LTEQ  { OpLtEq }
+| GT    { OpGt }
+| GTEQ  { OpGtEq }
 | AND   { OpAnd }
 | EQ    { OpEq }
 | NOTEQ { OpNotEq }

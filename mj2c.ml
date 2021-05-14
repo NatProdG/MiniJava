@@ -321,6 +321,9 @@ let binop2c
   | OpAnd -> fprintf out "&&"
   | OpEq  -> fprintf out "=="
   | OpNotEq -> fprintf out "!="
+  | OpLtEq -> fprintf out "<="
+  | OpGt -> fprintf out ">"
+  | OpGtEq -> fprintf out ">="
 
 (** [type2c out typ] transpiles the type [typ] to C on the output channel [out]. *)
 let type2c
@@ -461,6 +464,12 @@ let expr2c
 
     | EUnOp (UOpNot, e) ->
        fprintf out "!(%a)"
+         expr2c e
+    | EUnOp (UOpInc, e) ->
+       fprintf out "%a++"
+         expr2c e
+    | EUnOp (UOpDec, e) ->
+       fprintf out "%a--"
          expr2c e
 
     | EBinOp (op, e1, e2) ->

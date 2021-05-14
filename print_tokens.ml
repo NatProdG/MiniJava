@@ -50,8 +50,18 @@ let print_token show_loc out = function
      fprintf out "TIMES"
   | NOT ->
      fprintf out "NOT"
+  | INC ->
+     fprintf out "INC"
+  | DEC ->
+     fprintf out "DEC"
   | LT ->
      fprintf out "LT"
+  | GT ->
+     fprintf out "GT"
+  | LTEQ ->
+     fprintf out "LTEQ"
+  | GTEQ ->
+     fprintf out "GTEQ"
   | AND ->
      fprintf out "AND"
   | EQ ->

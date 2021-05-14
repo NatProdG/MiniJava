@@ -34,9 +34,15 @@ and binop =
   | OpAnd (** Binary operator [&&]. *)
   | OpEq  (** Binary operator [==]. *)
   | OpNotEq (** Binary operator [!=] *)
+  | OpLtEq (** Binary operator [<=] *)
+  | OpGt (** Binary operator [>] *)
+  | OpGtEq (** Binary operator [>=] *)
+  
 
-and unop = UOpNot (** Unary operator [!]. *)
-
+and unop = 
+  | UOpNot (** Unary operator [!]. *)
+  | UOpInc (** Unary operator [++]. *)
+  | UOpDec (** Unary operator [--]. *)
 and instruction =
   | IBlock of instruction list (** [IBlock [i1; i2; ...; in]] represents the instruction [{ i1 i2 ... in }]. *)
   | IIf of expression * instruction * instruction (** [IIf (e, i1, i2)] represents the instruction [if (e) i1 else i2]. *)

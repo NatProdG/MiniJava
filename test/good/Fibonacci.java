@@ -1,17 +1,20 @@
 class Fibonacci {
     public static void main(String[] args) {
-        System.out.println(new Fibo().fibo(10));
+        System.out.println(new Fibo().fibo());
     }
 }
 
 class Fibo {
-    public int fibo(int n) {
-        int res;
-        if (n < 2) {
-          res = n;
-        } else {
-            res = this.fibo(n - 2) + this.fibo(n - 1);
+    public int fibo() {
+        int x;
+        x=5;
+        if (10 <= 10) {
+            x++;
+            
         }
-        return res;
+        else {
+            x = 2;
+        }
+        return x;
     }
 }

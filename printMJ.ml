@@ -29,7 +29,13 @@ let binop out = function
      fprintf out "=="
   | OpNotEq ->
      fprintf out "!="   
-
+  | OpLtEq ->
+     fprintf out "<="
+  | OpGt ->
+     fprintf out ">"
+  | OpGtEq ->
+     fprintf out ">="
+  
 (** [expr out e], [expr0 out e], ..., [expr6 out e] print the expression [e]
     on the output channel [out]. [expr] is a synonym for [expr6].
     We have different functions to minimize the number of parenthesis. An expression
@@ -76,6 +82,12 @@ and expr2 out = function
   | EUnOp (UOpNot, e) ->
      fprintf out "!%a"
        expr2 e
+  | EUnOp (UOpDec, e) ->
+     fprintf out "%a--"
+       expr2 e
+  | EUnOp (UOpInc, e) ->
+     fprintf out "%a++"
+       expr2 e
   | e ->
      expr1 out e
 
@@ -107,7 +119,7 @@ and expr5 out = function
      expr4 out e
 
 and expr6 out = function
-  | EBinOp ((OpLt | OpAnd) as op, e1, e2) ->
+  | EBinOp ((OpLt | OpLtEq | OpGt | OpGtEq | OpAnd | OpEq | OpNotEq ) as op, e1, e2) ->
      fprintf out "%a %a %a"
        expr6 e1
        binop op
