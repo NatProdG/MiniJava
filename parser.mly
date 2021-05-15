@@ -14,7 +14,7 @@
 %token LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE
 %token THIS NEW DOT LENGTH
 %token SYSO
-%token IF ELSE WHILE
+%token IF ELSE WHILE FOR
 %token EOF
 
 %left AND
@@ -198,6 +198,26 @@ instruction:
 
 | WHILE LPAREN c = expression RPAREN i = instruction
    { IWhile (c, i) }
+
+| FOR LPAREN i = instruction c = expression SEMICOLON inc = for_inc RPAREN i2 = instruction
+   { IFor (i, c, inc, i2)}
+
+
+for_inc:
+| id = expression INC
+   { IInc id}
+
+| id = expression DEC
+   { IDec id}
+
+| INC id = expression
+   { IPreInc id}
+
+| DEC id = expression
+   { IPreDec id}
+
+| id = IDENT ASSIGN e = expression
+   { ISetVar (id, e) }   
 
 block:
 | LBRACE is = list(instruction) RBRACE

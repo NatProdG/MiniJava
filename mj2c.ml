@@ -486,6 +486,39 @@ let expr2c
   in
   expr2c out expr
 
+let for_inc2c
+      (method_name : string)
+      (class_info : ClassInfo.t)
+      out
+      (ins : MJ.instruction)
+    : unit =
+  let rec for_inc2c out ins =
+    match ins with
+    | ISetVar (x, e) ->
+       let x_class = ClassInfo.class_of method_name x class_info in
+       let e_class = get_class method_name class_info e in
+       fprintf out "%a = %s%a"
+         (var2c method_name class_info) x
+         (if x_class <> e_class then sprintf "(struct %s*) " x_class else "")
+         (expr2c method_name class_info) e
+    | IInc x ->
+       fprintf out "%a++"
+         (expr2c method_name class_info) x
+
+    | IDec x ->
+       fprintf out "%a--"
+         (expr2c method_name class_info) x
+
+    | IPreInc x ->
+       fprintf out "++%a"
+         (expr2c method_name class_info) x
+
+    | IPreDec x ->
+       fprintf out "--%a"
+         (expr2c method_name class_info) x
+  in 
+  for_inc2c out ins     
+
 (** [instr2c m class_info out ins] transpiles the instruction [ins], in the context of method [m] and [class_info],
     to C on the output channel [out]. *)
 let instr2c
@@ -536,6 +569,13 @@ let instr2c
        fprintf out "while (%a) %a"
          (expr2c method_name class_info) c
          instr2c i
+
+    | IFor (is, s_c, ii, il) ->
+       fprintf out "for(%a %a; %a) %a"
+         instr2c is
+         (expr2c method_name class_info) s_c
+         (for_inc2c method_name class_info) ii
+         instr2c il
 
     | IBlock is ->
        fprintf out "{%a%t}"

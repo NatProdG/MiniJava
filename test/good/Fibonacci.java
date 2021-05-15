@@ -6,13 +6,12 @@ class Fibonacci {
 
 class Fibo {
     public int fibo() {
+        int i;
         int x;
+        i = 0;
         x = 5;
-        if (10 <= 10) {
-           ++x;
-        }
-        else {
-            x = 2;
+        for (i=0; i<10; i++){
+            x++;
         }
         return x;
     }
