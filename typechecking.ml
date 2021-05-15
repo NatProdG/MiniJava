@@ -252,10 +252,14 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
     typecheck_instruction cenv venv vinit instanceof ibody
 
   | IFor (istart, stop_cond, iinc, iloop) ->
-    typecheck_instruction cenv venv vinit instanceof istart;
-    typecheck_expression_expecting cenv venv vinit instanceof TypBool stop_cond;
-    typecheck_instruction cenv venv vinit instanceof iinc;
-    typecheck_instruction cenv venv vinit instanceof iloop
+    let vinit1 = 
+      typecheck_instruction cenv venv vinit instanceof istart;
+    in
+    typecheck_expression_expecting cenv venv vinit1 instanceof TypBool stop_cond;
+    let vinit2 =
+      typecheck_instruction cenv venv vinit1 instanceof iinc;
+    in  
+    typecheck_instruction cenv venv vinit2 instanceof iloop
     
   | ISyso e ->
      typecheck_expression_expecting cenv venv vinit instanceof TypInt e;

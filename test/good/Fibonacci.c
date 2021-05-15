@@ -8,9 +8,8 @@ class Fibo {
   public int fibo() {
     int i;
     int x;
-    i = 0;
     x = 5;
-    for(i = 0;;i < 10;i++;) {
+    for(i = 8;;i < 10;i++;) {
       x++;
     }
     return x;
@@ -32,9 +31,8 @@ void* (*Fibo_vtable[])() = { Fibo_fibo };
 void* Fibo_fibo(struct Fibo* this) {
   int i;
   int x;
-  i = 0;
   x = 5;
-  for(i = 0; (i < 10); i++) {
+  for(i = 8; (i < 10); i++) {
     x++;
   }
   return (void*)(x);
