@@ -41,6 +41,7 @@ and unop = LMJ.unop =
 and instruction =
   | IBlock of instruction list
   | IIf of expression * instruction * instruction
+  | IIfWe of expression * instruction
   | IWhile of expression * instruction
   | IFor of instruction * expression * instruction * instruction
   | ISyso of expression

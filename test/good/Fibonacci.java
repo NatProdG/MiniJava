@@ -9,7 +9,14 @@ class Fibo {
         int i;
         int x;
         x = 5;
-        x = x+1;
+        if(x == 0){
+            x = 150;
+        }
+        if(x == 1){
+            x = 250;
+        }else{
+            x = 0;
+        }
         for (i=12; i>10;i--){
             x++;
         }

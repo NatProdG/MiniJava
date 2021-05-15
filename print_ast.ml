@@ -209,6 +209,14 @@ let rec print_instruction prefix out i =
        prefix'
        branch_end
        (print_instruction prefix') i2
+  | IIfWe (e, i1) ->
+     fprintf out "IIfWe\n%s%s%a\n%s%s%a"
+       prefix'
+       branch
+       (print_expression (prefix' ^ pipe)) e
+       prefix'
+       branch_end
+       (print_instruction (prefix')) i1
   | IWhile (e, i) ->
      fprintf out "IWhile\n%s%s%a\n%s%s%a"
        prefix'
@@ -231,8 +239,6 @@ let rec print_instruction prefix out i =
         prefix'
         branch_end
         (print_instruction prefix') iloop
-
-
   | ISetVar (id, e) ->
      fprintf out "ISetVar\n%s%s%a\n%s%s%a"
        prefix'

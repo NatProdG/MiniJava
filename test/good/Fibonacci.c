@@ -9,7 +9,12 @@ class Fibo {
     int i;
     int x;
     x = 5;
-    x = x + 1;
+    if (x == 0) {
+      x = 150;
+    }
+    if (x == 1) {
+      x = 250;
+    }
     for(i = 12;;i > 10;i--;) {
       x++;
     }
@@ -33,7 +38,12 @@ void* Fibo_fibo(struct Fibo* this) {
   int i;
   int x;
   x = 5;
-  x = (x + 1);
+  if ((x == 0)) {
+    x = 150;
+  }
+  if ((x == 1)) {
+    x = 250;
+  }
   for(i = 12; (i > 10); i--) {
     x++;
   }
