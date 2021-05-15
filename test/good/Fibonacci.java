@@ -9,7 +9,8 @@ class Fibo {
         int i;
         int x;
         x = 5;
-        for (i=8; i<10; i++){
+        x = x+1;
+        for (i=12; i>10;i--){
             x++;
         }
         return x;

@@ -157,8 +157,8 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
   | EBinOp (op, e1, e2) ->
       let expected, returned =
         match op with
-        | OpAdd
-        | OpSub
+        | OpAdd -> TypInt, TypInt
+        | OpSub -> TypInt, TypInt
         | OpLtEq -> TypInt, TypBool
         | OpGt -> TypInt, TypBool
         | OpGtEq -> TypInt, TypBool 
