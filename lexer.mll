@@ -42,6 +42,7 @@ rule get_token = parse
   | '{'       { LBRACE }
   | '}'       { RBRACE }
   | '.'       { DOT }
+  | ':'       { COLON }
   | ';'       { SEMICOLON }
   | '='       { ASSIGN }
   | "=="      { EQ }
@@ -65,10 +66,14 @@ rule get_token = parse
   | "this"    { THIS }
   | "length"  { LENGTH }
   | "System.out.println" { SYSO }
-  | "if"    { IF }
-  | "else"  { ELSE }
-  | "while" { WHILE }
-  | "for"   { FOR }
+  | "if"      { IF }
+  | "else"    { ELSE }
+  | "while"   { WHILE }
+  | "for"     { FOR }
+  | "switch"  { SWITCH }
+  | "case"    { CASE }
+  | "break"   { BREAK }
+  | "default" { DEFAULT }
   | integer as i
       {
         try

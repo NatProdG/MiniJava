@@ -9,12 +9,12 @@
 %token <string Location.t> IDENT
 %token CLASS PUBLIC STATIC VOID MAIN STRING EXTENDS RETURN
 %token PLUS MINUS TIMES NOT LT AND EQ NOTEQ LTEQ GT GTEQ INC DEC
-%token COMMA SEMICOLON
+%token COMMA SEMICOLON COLON
 %token ASSIGN
 %token LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE
 %token THIS NEW DOT LENGTH
 %token SYSO
-%token IF ELSE WHILE FOR
+%token IF ELSE WHILE FOR SWITCH CASE BREAK DEFAULT
 %token EOF
 
 %left AND
@@ -198,12 +198,22 @@ instruction:
 
 | IF LPAREN c = expression RPAREN i1 = instruction
    { IIfWe (c, i1) }
-   
+
 | WHILE LPAREN c = expression RPAREN i = instruction
    { IWhile (c, i) }
 
 | FOR LPAREN i = instruction c = expression SEMICOLON inc = for_inc RPAREN i2 = instruction
    { IFor (i, c, inc, i2)}
+
+| SWITCH LPAREN id = expression RPAREN LBRACE c = list(case) DEFAULT COLON li = list(instruction) RBRACE   
+   { ISwitch (id, c, li) }
+
+case:
+| CASE i=INT_CONST COLON li = list(instruction) BREAK SEMICOLON
+   { ICaseB ((ConstInt i), li) }
+
+| CASE i=INT_CONST COLON li = list(instruction)
+   { ICase ((ConstInt i), li) }
 
 
 for_inc:

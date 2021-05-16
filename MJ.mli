@@ -44,6 +44,9 @@ and instruction =
   | IIfWe of expression * instruction
   | IWhile of expression * instruction
   | IFor of instruction * expression * instruction * instruction
+  | ISwitch of expression * instruction list * instruction list
+  | ICaseB of constant * instruction list
+  | ICase of constant * instruction list
   | ISyso of expression
   | ISetVar of identifier * expression
   | IInc of expression

@@ -103,7 +103,15 @@ let print_token show_loc out = function
   | WHILE ->
      fprintf out "WHILE"
   | FOR ->
-     fprintf out "FOR"    
+     fprintf out "FOR"
+  | SWITCH ->
+     fprintf out "SWITCH"
+  | CASE ->
+     fprintf out "CASE"
+  | BREAK ->
+     fprintf out "BREAK"
+  | COLON ->
+     fprintf out "COLON"       
   | EOF ->
      fprintf out "EOF"
 

@@ -6,19 +6,18 @@ class Fibonacci {
 
 class Fibo {
     public int fibo() {
-        int i;
         int x;
         x = 5;
-        if(x == 0){
-            x = 150;
-        }
-        if(x == 1){
-            x = 250;
-        }else{
-            x = 0;
-        }
-        for (i=12; i>10;i--){
-            x++;
+        switch(x){
+            case 4:
+                x = 4;
+                break;
+            case 5:
+                x = 6;
+                break;
+            default:
+                x = 0;
+
         }
         return x;
     }

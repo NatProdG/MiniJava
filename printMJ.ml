@@ -178,7 +178,21 @@ let rec instr out = function
         instr is
         expr s_c
         instr ii
-        instr il      
+        instr il
+  | ISwitch (id, c, li) ->
+      fprintf out "switch(%a){ %a%a%t}"
+         expr id   
+         (indent indentation (sep_list nl instr)) c
+         (indent indentation (sep_list nl instr)) li 
+         nl   
+  | ICaseB(i, li) ->
+      fprintf out "case %a: %a break;"
+         constant i
+         (indent indentation (sep_list nl instr)) li
+  | ICase(i, li) ->
+      fprintf out "case %a: %a"
+         constant i
+         (indent indentation (sep_list nl instr)) li         
   | IBlock is ->
      fprintf out "{%a%t}"
        (indent indentation (sep_list nl instr)) is

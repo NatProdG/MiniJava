@@ -265,6 +265,35 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
     in  
     typecheck_instruction cenv venv vinit2 instanceof iloop
     
+  | ISwitch(id, c, li) ->
+    typecheck_expression_expecting cenv venv vinit instanceof TypInt id;
+    List.fold_left
+       (fun vinit inst ->
+         typecheck_instruction cenv venv vinit instanceof inst)
+       vinit
+       c;
+    List.fold_left
+       (fun vinit inst ->
+         typecheck_instruction cenv venv vinit instanceof inst)
+       vinit
+       li; 
+
+  | ICaseB(i, li) ->
+
+    List.fold_left
+       (fun vinit inst ->
+         typecheck_instruction cenv venv vinit instanceof inst)
+       vinit
+       li;   
+
+  | ICase(i, li) ->
+
+    List.fold_left
+       (fun vinit inst ->
+         typecheck_instruction cenv venv vinit instanceof inst)
+       vinit
+       li;
+       
   | ISyso e ->
      typecheck_expression_expecting cenv venv vinit instanceof TypInt e;
      vinit

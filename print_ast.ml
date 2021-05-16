@@ -239,6 +239,21 @@ let rec print_instruction prefix out i =
         prefix'
         branch_end
         (print_instruction prefix') iloop
+  | ISwitch (id, c, li) ->
+      fprintf out "ISwitch %a \n%a\n%s%sdefault: \n%a"
+         (print_expression (prefix' ^ pipe)) id   
+         (print_instruction_list (prefix' ^ pipe)) c
+         prefix'
+         branch
+         (print_instruction_list prefix) li
+  | ICaseB (i, li) ->
+      fprintf out "ICaseB %a \n%a"
+         print_constant i
+         (print_instruction_list prefix') li
+  | ICase (i, li) ->
+      fprintf out "ICase %a \n%a"
+         print_constant i   
+         (print_instruction_list prefix') li       
   | ISetVar (id, e) ->
      fprintf out "ISetVar\n%s%s%a\n%s%s%a"
        prefix'

@@ -582,6 +582,26 @@ let instr2c
          (for_inc2c method_name class_info) ii
          instr2c il
 
+    | ISwitch (id, c, li) ->
+      fprintf out "switch(%a){ %a %t  default: %a%t}"
+         (expr2c method_name class_info) id   
+         (indent indentation (sep_list nl instr2c)) c
+         nl
+         (indent (indentation+2) (sep_list nl instr2c)) li 
+         nl   
+
+    | ICaseB(i, li) ->
+      fprintf out "case %a: %a%t  break;"
+         constant2c i
+         (indent indentation (sep_list nl instr2c)) li
+         nl
+         
+
+    | ICase(i, li) ->
+      fprintf out "case %a: %a"
+         constant2c i
+         (indent indentation (sep_list nl instr2c)) li 
+
     | IBlock is ->
        fprintf out "{%a%t}"
          (indent indentation (sep_list nl instr2c)) is
