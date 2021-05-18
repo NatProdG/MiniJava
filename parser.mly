@@ -178,7 +178,7 @@ instruction:
 | id = expression DEC SEMICOLON
    { IDec id}
 
-| INC id = expression SEMICOLON
+| INC id = IDENT SEMICOLON
    { IPreInc id}
 
 | DEC id = expression SEMICOLON

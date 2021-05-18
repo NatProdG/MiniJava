@@ -209,12 +209,10 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
      typecheck_expression_expecting cenv venv vinit instanceof (vlookup v venv) e;
      vinit
   | IInc v ->
-     let typ = vlookup v venv in
-     let v' = Location.content v in
-     if not (S.mem v' vinit) then
-       error v (sprintf "Variable %s has not been initialized" v');
-    typecheck_expression_expecting cenv venv vinit instanceof TypInt typ;
-     vinit
+    if (compatible (vlookup v venv) TypInt instanceof) then vinit
+    else error v
+    (sprintf "Type expected %s, got %s"(type_to_string TypInt) (type_to_string (vlookup v venv)) )
+
 
   | IDec v ->
      typecheck_expression_expecting cenv venv vinit instanceof TypInt v;
