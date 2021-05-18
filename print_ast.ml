@@ -272,7 +272,7 @@ let rec print_instruction prefix out i =
        (print_expression prefix') e
   | IInc (id) ->
      fprintf out "IInc %a"
-     (print_expression prefix') id
+     print_identifier id
   | IDec (id) ->
      fprintf out "IDec %a"
      (print_expression prefix') id

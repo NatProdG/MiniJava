@@ -50,7 +50,7 @@ and instruction =
   | ICase of constant * instruction list
   | ISyso of expression
   | ISetVar of identifier * expression
-  | IInc of expression
+  | IInc of identifier
   | IDec of expression
   | IPreInc of expression
   | IPreDec of expression

@@ -503,7 +503,7 @@ let for_inc2c
          (expr2c method_name class_info) e
     | IInc x ->
        fprintf out "%a++"
-         (expr2c method_name class_info) x
+         (var2c method_name class_info) x
 
     | IDec x ->
        fprintf out "%a--"
@@ -541,7 +541,7 @@ let instr2c
          (expr2c method_name class_info) e
     | IInc x ->
        fprintf out "%a++;"
-         (expr2c method_name class_info) x
+         (var2c method_name class_info) x
 
     | IDec x ->
        fprintf out "%a--;"

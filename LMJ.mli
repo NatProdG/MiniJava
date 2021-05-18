@@ -59,7 +59,7 @@ and instruction =
   | ISyso of expression (** [ISyso e] represents the instruction [System.out.println(e);]. *)
   | ISetVar of identifier * expression (** [ISetVar (id, e)] represents the instruction [id = e;]. *)
   | IArraySet of identifier * expression * expression (** [IArraySet (id, e1, e2)] represents the instruction [id[e1] = e2;]. *)
-  | IInc of expression (** [IInc id] represents the instruction [id++;]. *)
+  | IInc of identifier (** [IInc id] represents the instruction [id++;]. *)
   | IDec of expression (** [IDec id] represents the instruction [id--;]. *)
   | IPreInc of expression (** [IPreInc id] represents the instruction [++id;]. *)
   | IPreDec of expression (** [IPreDec id] represents the instruction [--id;]. *)

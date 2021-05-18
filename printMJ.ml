@@ -143,8 +143,8 @@ let rec instr out = function
        x
        expr e
   | IInc x ->
-     fprintf out "%a++;"
-       expr x
+     fprintf out "%s++;"
+      x
   | IDec x ->
      fprintf out "%a--;"
        expr x

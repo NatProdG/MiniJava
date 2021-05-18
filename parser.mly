@@ -172,7 +172,7 @@ instruction:
 | b = block
    { b }
 
-| id = expression INC SEMICOLON
+| id = IDENT INC SEMICOLON
    { IInc id}
 
 | id = expression DEC SEMICOLON
@@ -220,7 +220,7 @@ case:
 
 
 for_inc:
-| id = expression INC
+| id = IDENT INC
    { IInc id}
 
 | id = expression DEC

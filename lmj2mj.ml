@@ -26,7 +26,7 @@ and translate_instruction = function
 | LMJ.ICase (i, li) -> MJ.ICase (i, List.map translate_instruction li)
 | LMJ.ISyso e -> MJ.ISyso (translate_expression e)
 | LMJ.ISetVar (id, e) -> MJ.ISetVar (Location.content id, translate_expression e)
-| LMJ.IInc id -> MJ.IInc (translate_expression id)
+| LMJ.IInc id -> MJ.IInc (Location.content id)
 | LMJ.IDec id -> MJ.IDec (translate_expression id)
 | LMJ.IPreInc id -> MJ.IPreInc (translate_expression id)
 | LMJ.IPreDec id -> MJ.IPreDec (translate_expression id)
