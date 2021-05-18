@@ -14,6 +14,7 @@ and raw_expression =
   | EConst of constant (** A integer or boolean constant. *)
   | EGetVar of identifier (** Get the value of a variable. *)
   | EUnOp of unop * expression (** An unary operator. *)
+  | EUincOp of uincop * identifier (** An unary incrementation operator**)
   | EBinOp of binop * expression * expression (** [EBinOp (op, e1, e2)] represents the expression [e1 op e2]. *)
   | EMethodCall of expression * identifier * expression list (** [EMethodCall (o, id, [p1, ..., pn])] represents the call [o.id(p1, ..., pn)]. *)
   | EArrayGet of expression * expression (** [EArrayGet (e1, e2)] represents the expression [e1[e2]]. *)
@@ -41,10 +42,14 @@ and binop =
 
 and unop = 
   | UOpNot (** Unary operator [!]. *)
-  | UOpInc (** Unary operator [++] after an indentifier. *)
-  | UOpDec (** Unary operator [--] after an indentifier. *)
-  | UOpPreInc (** Unary operator [++] bofore an indentifier. *)
-  | UOpPreDec (** Unary operator [--] bofore an indentifier. *)
+
+
+and uincop = 
+| UOpInc (** Unary operator [++] after an indentifier. *)
+| UOpDec (** Unary operator [--] after an indentifier. *)
+| UOpPreInc (** Unary operator [++] before an indentifier. *)
+| UOpPreDec (** Unary operator [--] before an indentifier. *)
+
 
 and instruction =
   | IBlock of instruction list (** [IBlock [i1; i2; ...; in]] represents the instruction [{ i1 i2 ... in }]. *)
@@ -60,9 +65,9 @@ and instruction =
   | ISetVar of identifier * expression (** [ISetVar (id, e)] represents the instruction [id = e;]. *)
   | IArraySet of identifier * expression * expression (** [IArraySet (id, e1, e2)] represents the instruction [id[e1] = e2;]. *)
   | IInc of identifier (** [IInc id] represents the instruction [id++;]. *)
-  | IDec of expression (** [IDec id] represents the instruction [id--;]. *)
-  | IPreInc of expression (** [IPreInc id] represents the instruction [++id;]. *)
-  | IPreDec of expression (** [IPreDec id] represents the instruction [--id;]. *)
+  | IDec of identifier (** [IDec id] represents the instruction [id--;]. *)
+  | IPreInc of identifier (** [IPreInc id] represents the instruction [++id;]. *)
+  | IPreDec of identifier (** [IPreDec id] represents the instruction [--id;]. *)
 
 and typ =
   | TypInt (** Type [int]. *)

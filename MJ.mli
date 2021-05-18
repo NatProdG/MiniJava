@@ -7,6 +7,7 @@ type expression =
   | EConst of constant
   | EGetVar of identifier
   | EUnOp of unop * expression
+  | EUincOp of uincop * identifier
   | EBinOp of binop * expression * expression
   | EMethodCall of expression * identifier * expression list
   | EArrayGet of expression * expression
@@ -33,6 +34,8 @@ and binop = LMJ.binop =
 
 and unop = LMJ.unop = 
   | UOpNot
+
+and uincop = LMJ.uincop = 
   | UOpInc
   | UOpDec
   | UOpPreInc
@@ -51,9 +54,9 @@ and instruction =
   | ISyso of expression
   | ISetVar of identifier * expression
   | IInc of identifier
-  | IDec of expression
-  | IPreInc of expression
-  | IPreDec of expression
+  | IDec of identifier
+  | IPreInc of identifier
+  | IPreDec of identifier
   | IArraySet of identifier * expression * expression
 
 and typ =

@@ -111,17 +111,17 @@ expression:
 
 raw_expression:
 
-| i = expression INC
-    { EUnOp ( UOpInc, i) }
+| i = IDENT INC
+    { EUincOp ( UOpInc, i) }
 
-| i = expression DEC
-    { EUnOp ( UOpDec, i) }
+| i = IDENT DEC
+    { EUincOp ( UOpDec, i) }
 
-| INC i = expression
-    { EUnOp ( UOpPreInc, i) }
+| INC i = IDENT
+    { EUincOp ( UOpPreInc, i) }
 
-| DEC i = expression
-    { EUnOp ( UOpPreDec, i) }  
+| DEC i = IDENT
+    { EUincOp ( UOpPreDec, i) }  
    
 | i = INT_CONST
    { EConst (ConstInt i) }
@@ -175,13 +175,13 @@ instruction:
 | id = IDENT INC SEMICOLON
    { IInc id}
 
-| id = expression DEC SEMICOLON
+| id = IDENT DEC SEMICOLON
    { IDec id}
 
 | INC id = IDENT SEMICOLON
    { IPreInc id}
 
-| DEC id = expression SEMICOLON
+| DEC id = IDENT SEMICOLON
    { IPreDec id}
 
 | id = IDENT ASSIGN e = expression SEMICOLON
@@ -223,13 +223,13 @@ for_inc:
 | id = IDENT INC
    { IInc id}
 
-| id = expression DEC
+| id = IDENT DEC
    { IDec id}
 
-| INC id = expression
+| INC id = IDENT
    { IPreInc id}
 
-| DEC id = expression
+| DEC id = IDENT
    { IPreDec id}
 
 | id = IDENT ASSIGN e = expression

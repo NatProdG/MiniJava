@@ -134,14 +134,14 @@ and typecheck_expression (cenv : class_env) (venv : variable_env) (vinit : S.t)
       let expected, returned =
         match op with
         | UOpNot -> TypBool, TypBool
-        | UOpInc -> TypInt, TypInt
-        | UOpDec -> TypInt, TypInt
-        | UOpPreInc -> TypInt, TypInt
-        | UOpPreDec -> TypInt, TypInt
       in
       typecheck_expression_expecting cenv venv vinit instanceof expected e;
       returned
-
+  | EUincOp (op, id) ->
+      if (compatible (vlookup id venv) TypInt instanceof) then TypInt
+      else error id
+      (sprintf "Type expected %s, got %s"(type_to_string TypInt) (type_to_string (vlookup id venv)) )
+    
   | EBinOp (OpEq , e1, e2) ->
       let typ1 = typecheck_expression cenv venv vinit instanceof e1 and typ2 = typecheck_expression cenv venv vinit instanceof e2 in
       if (compatible typ1 typ2 instanceof || compatible typ2 typ1 instanceof)
@@ -215,16 +215,19 @@ let rec typecheck_instruction (cenv : class_env) (venv : variable_env) (vinit : 
 
 
   | IDec v ->
-     typecheck_expression_expecting cenv venv vinit instanceof TypInt v;
-     vinit
+    if (compatible (vlookup v venv) TypInt instanceof) then vinit
+    else error v
+    (sprintf "Type expected %s, got %s"(type_to_string TypInt) (type_to_string (vlookup v venv)) )
 
   | IPreInc v ->
-     typecheck_expression_expecting cenv venv vinit instanceof TypInt v;
-     vinit
+    if (compatible (vlookup v venv) TypInt instanceof) then vinit
+    else error v
+    (sprintf "Type expected %s, got %s"(type_to_string TypInt) (type_to_string (vlookup v venv)) )
 
   | IPreDec v ->
-     typecheck_expression_expecting cenv venv vinit instanceof TypInt v;
-     vinit         
+    if (compatible (vlookup v venv) TypInt instanceof) then vinit
+    else error v
+    (sprintf "Type expected %s, got %s"(type_to_string TypInt) (type_to_string (vlookup v venv)) )     
 
   | IArraySet (earray, eindex, evalue) ->
     typecheck_expression_expecting cenv venv vinit instanceof TypIntArray

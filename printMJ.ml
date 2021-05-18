@@ -82,18 +82,18 @@ and expr2 out = function
   | EUnOp (UOpNot, e) ->
      fprintf out "!%a"
        expr2 e
-  | EUnOp (UOpDec, e) ->
-     fprintf out "%a--"
-       expr2 e
-  | EUnOp (UOpInc, e) ->
-     fprintf out "%a++"
-       expr2 e
-  | EUnOp (UOpPreInc, e) ->
-     fprintf out "++%a"
-       expr2 e
-  | EUnOp (UOpPreDec, e) ->
-     fprintf out "--%a"
-       expr2 e          
+  | EUincOp (UOpDec, e) ->
+     fprintf out "%s--"
+       e
+  | EUincOp (UOpInc, e) ->
+      fprintf out "%s++"
+      e
+   | EUincOp (UOpPreInc, e) ->
+      fprintf out "++%s"
+      e
+  | EUincOp (UOpPreDec, e) ->
+      fprintf out "--%s"
+      e
   | e ->
      expr1 out e
 
@@ -146,14 +146,14 @@ let rec instr out = function
      fprintf out "%s++;"
       x
   | IDec x ->
-     fprintf out "%a--;"
-       expr x
+     fprintf out "%s--;"
+       x
   | IPreInc x ->
-     fprintf out "++%a;"
-       expr x
+     fprintf out "++%s;"
+       x
   | IPreDec x ->
-     fprintf out "--%a;"
-       expr x               
+     fprintf out "--%s;"
+       x               
   | IArraySet (id, ei, ev) ->
      fprintf out "%s[%a] = %a;"
        id

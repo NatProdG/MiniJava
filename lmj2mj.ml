@@ -6,6 +6,7 @@ and translate_raw_expression = function
 | LMJ.EConst c -> MJ.EConst c
 | LMJ.EGetVar id -> MJ.EGetVar (Location.content id)
 | LMJ.EUnOp (op, e) -> MJ.EUnOp (op, translate_expression e)
+| LMJ.EUincOp (op, id) -> MJ.EUincOp (op, Location.content id)
 | LMJ.EBinOp (op, e1, e2) -> MJ.EBinOp (op, translate_expression e1, translate_expression e2)
 | LMJ.EMethodCall (o, id, args) -> MJ.EMethodCall (translate_expression o, Location.content id, List.map translate_expression args)
 | LMJ.EArrayGet (a, i) -> MJ.EArrayGet (translate_expression a, translate_expression i)
@@ -27,9 +28,9 @@ and translate_instruction = function
 | LMJ.ISyso e -> MJ.ISyso (translate_expression e)
 | LMJ.ISetVar (id, e) -> MJ.ISetVar (Location.content id, translate_expression e)
 | LMJ.IInc id -> MJ.IInc (Location.content id)
-| LMJ.IDec id -> MJ.IDec (translate_expression id)
-| LMJ.IPreInc id -> MJ.IPreInc (translate_expression id)
-| LMJ.IPreDec id -> MJ.IPreDec (translate_expression id)
+| LMJ.IDec id -> MJ.IDec (Location.content id)
+| LMJ.IPreInc id -> MJ.IPreInc (Location.content id)
+| LMJ.IPreDec id -> MJ.IPreDec (Location.content id)
 | LMJ.IArraySet (a, e1, e2) -> MJ.IArraySet (Location.content a, translate_expression e1, translate_expression e2)
 
 let translate_typ = function

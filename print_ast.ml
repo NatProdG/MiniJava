@@ -68,15 +68,16 @@ let print_constant out = function
 let print_unop out = function
   | UOpNot ->
      fprintf out "UOpNot"
-  | UOpInc ->
-     fprintf out "UOpInc"
-  | UOpDec ->
-     fprintf out "UOpDec"
-  | UOpPreInc ->
-     fprintf out "UOpPreInc"
-  | UOpPreDec ->
-     fprintf out "UOpPreDec"   
-
+  
+let print_uincop out = function
+   | UOpInc ->
+      fprintf out "UOpInc"
+   | UOpDec ->
+      fprintf out "UOpDec"
+   | UOpPreInc ->
+      fprintf out "UOpPreInc"
+   | UOpPreDec ->
+      fprintf out "UOpPreDec"   
 (** [print_binop out op] prints the binary operator [op] on the output channel [out]. *)
 let print_binop out = function
   | OpAdd ->
@@ -125,6 +126,13 @@ and print_raw_expression prefix out e pos =
        prefix'
        branch_end
        (print_expression prefix') e
+  | EUincOp (op, e) ->
+     fprintf out "EUincOp %a" print_uincop op;
+     print_position out pos;
+     fprintf out "\n%s%s%a"
+       prefix'
+       branch_end
+       print_identifier e
   | EBinOp (op, e1, e2) ->
      fprintf out "EBinOp %a" print_binop op;
      print_position out pos;
@@ -275,13 +283,13 @@ let rec print_instruction prefix out i =
      print_identifier id
   | IDec (id) ->
      fprintf out "IDec %a"
-     (print_expression prefix') id
+     print_identifier id
   | IPreInc (id) ->
      fprintf out "IPreInc %a"
-     (print_expression prefix') id
+     print_identifier id
   | IPreDec (id) ->
      fprintf out "IPreDec %a"
-     (print_expression prefix') id         
+     print_identifier id      
   | IArraySet (id, e1, e2) ->
      fprintf out "IArraySet\n%s%s%a\n%s%s%a\n%s%s%a"
        prefix'

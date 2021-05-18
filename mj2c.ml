@@ -465,18 +465,18 @@ let expr2c
     | EUnOp (UOpNot, e) ->
        fprintf out "!(%a)"
          expr2c e
-    | EUnOp (UOpInc, e) ->
+    | EUincOp (UOpInc, e) ->
        fprintf out "%a++"
-         expr2c e
-    | EUnOp (UOpDec, e) ->
+       (var2c method_name class_info) e
+    | EUincOp (UOpDec, e) ->
        fprintf out "%a--"
-         expr2c e
-    | EUnOp (UOpPreInc, e) ->
+       (var2c method_name class_info) e
+    | EUincOp (UOpPreInc, e) ->
        fprintf out "++%a"
-         expr2c e
-    | EUnOp (UOpPreDec, e) ->
+       (var2c method_name class_info) e
+    | EUincOp (UOpPreDec, e) ->
        fprintf out "--%a"
-         expr2c e          
+       (var2c method_name class_info) e
 
     | EBinOp (op, e1, e2) ->
        fprintf out "(%a %a %a)"
@@ -507,15 +507,15 @@ let for_inc2c
 
     | IDec x ->
        fprintf out "%a--"
-         (expr2c method_name class_info) x
+         (var2c method_name class_info) x
 
     | IPreInc x ->
        fprintf out "++%a"
-         (expr2c method_name class_info) x
+         (var2c method_name class_info) x
 
     | IPreDec x ->
        fprintf out "--%a"
-         (expr2c method_name class_info) x
+         (var2c method_name class_info) x
          
     | _ ->
       assert false     
@@ -545,15 +545,15 @@ let instr2c
 
     | IDec x ->
        fprintf out "%a--;"
-         (expr2c method_name class_info) x
+         (var2c method_name class_info) x
 
     | IPreInc x ->
        fprintf out "++%a;"
-         (expr2c method_name class_info) x
+         (var2c method_name class_info) x
 
     | IPreDec x ->
        fprintf out "--%a;"
-         (expr2c method_name class_info) x
+         (var2c method_name class_info) x
 
     | IArraySet (id, ei, ev) ->
        fprintf out "(%a)->array[%a] = %a;"
