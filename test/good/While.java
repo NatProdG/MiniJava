@@ -1,17 +1,16 @@
-class Fibonacci {
+class While {
     public static void main(String[] args) {
-        System.out.println(new Fibo().fibo());
+        System.out.println(new WhileClass().w());
     }
 }
 
-class Fibo {
-    public int fibo() {
+class WhileClass {
+    public int w() {
         int x;
         x = 5;
-        do {
+        while(x<15){
             x++;
         }
-        while(x<15);
         return x;
     }
 }

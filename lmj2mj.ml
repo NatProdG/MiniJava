@@ -19,6 +19,7 @@ and translate_instruction = function
 | LMJ.IIf (c, i1, i2) -> MJ.IIf (translate_expression c, translate_instruction i1, translate_instruction i2)
 | LMJ.IIfWe (c, i1) -> MJ.IIfWe (translate_expression c, translate_instruction i1)
 | LMJ.IWhile (c, i) -> MJ.IWhile (translate_expression c, translate_instruction i)
+| LMJ.IDoWhile (i, c) -> MJ.IDoWhile (translate_instruction i, translate_expression c)
 | LMJ.IFor (is, s_c, ii, il) -> MJ.IFor (translate_instruction is, translate_expression s_c, translate_instruction ii, translate_instruction il)
 | LMJ.ISwitch (id, c, li) -> MJ.ISwitch (translate_expression id, List.map translate_instruction c, List.map translate_instruction li)
 | LMJ.ICaseB (i, li) -> MJ.ICaseB (i, List.map translate_instruction li)

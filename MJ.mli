@@ -43,6 +43,7 @@ and instruction =
   | IIf of expression * instruction * instruction
   | IIfWe of expression * instruction
   | IWhile of expression * instruction
+  | IDoWhile of instruction * expression
   | IFor of instruction * expression * instruction * instruction
   | ISwitch of expression * instruction list * instruction list
   | ICaseB of constant * instruction list

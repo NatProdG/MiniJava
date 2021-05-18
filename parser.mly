@@ -14,12 +14,12 @@
 %token LPAREN RPAREN LBRACKET RBRACKET LBRACE RBRACE
 %token THIS NEW DOT LENGTH
 %token SYSO
-%token IF ELSE WHILE FOR SWITCH CASE BREAK DEFAULT
+%token IF ELSE WHILE FOR SWITCH CASE BREAK DEFAULT DO
 %token EOF
 
 %left AND
 %nonassoc EQ NOTEQ
-%nonassoc LT
+%nonassoc LT GT LTEQ GTEQ
 %left PLUS MINUS
 %left TIMES
 %nonassoc NOT
@@ -201,6 +201,9 @@ instruction:
 
 | WHILE LPAREN c = expression RPAREN i = instruction
    { IWhile (c, i) }
+
+| DO i = instruction WHILE LPAREN c = expression RPAREN SEMICOLON
+   { IDoWhile (i, c)}
 
 | FOR LPAREN i = instruction c = expression SEMICOLON inc = for_inc RPAREN i2 = instruction
    { IFor (i, c, inc, i2)}
