@@ -20,7 +20,7 @@
 %left AND
 %nonassoc EQ NOTEQ
 %nonassoc LT GT LTEQ GTEQ
-%left PLUS MINUS
+%left PLUS MINUS 
 %left TIMES
 %nonassoc NOT
 %nonassoc INC DEC

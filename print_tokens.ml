@@ -112,6 +112,8 @@ let print_token show_loc out = function
      fprintf out "CASE"
   | BREAK ->
      fprintf out "BREAK"
+  | DEFAULT ->
+     fprintf out "DEFAULT"   
   | COLON ->
      fprintf out "COLON"       
   | EOF ->

@@ -516,6 +516,9 @@ let for_inc2c
     | IPreDec x ->
        fprintf out "--%a"
          (expr2c method_name class_info) x
+         
+    | _ ->
+      assert false     
   in 
   for_inc2c out ins     
 
