@@ -23,7 +23,6 @@
 %left PLUS MINUS 
 %left TIMES
 %nonassoc NOT
-%nonassoc INC DEC
 %nonassoc DOT LBRACKET
 
 %start program
